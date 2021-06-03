@@ -16,9 +16,12 @@ const appointmentsRepository = new AppointmentsRepository()
 
 // GET Listar todos os agendamentos.
 appointmentsRouter.get('/', (request, response) => {
-  const appointments = appointmentsRepository.all()
-
-  return response.json(appointments)
+  try {
+    const appointments = appointmentsRepository.all()
+    return response.json(appointments)
+  } catch (err) {
+    response.status(400).json({ error: err.message })
+  }
 })
 
 // POST Criar um Agendamento (http://localhost:3333/appointments)
